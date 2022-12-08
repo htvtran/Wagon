@@ -1,0 +1,26 @@
+<div th:fragment="sidebar" class="col-md-3">
+    <div class="sidebar-box ftco-animate">
+        <div class="categories">
+            <h3>Product Types
+            </h3>
+
+            <ul class="p-0">
+                <li><a th:href="@{/products}" th:classappend="${selectedCat == null} ? active-item : '' ">All <span
+                            class="fa"></span></a></li>
+                <th:block th:each="cat : ${session.catList}">
+                    <li>
+                        <a th:href="@{|/products/__${cat.name}__|}"
+                            th:classappend="${selectedCat != null && selectedCat.id == cat.id} ? active-item : '' ">[[${cat.name}]]
+                            <span class="fa fa-chevron-right"></span>
+                            <span class="badge badge-pill badge-danger">[[${cat.getTotalProducts()}]]</span>
+                        </a>
+                    </li>
+                    <!-- <li><a href="#">Gin <span class="fa fa-chevron-right"></span></a></li>
+                    <li><a href="#">Rum <span class="fa fa-chevron-right"></span></a></li>
+                    <li><a href="#">Tequila <span class="fa fa-chevron-right"></span></a></li>
+                    <li><a href="#">Vodka <span class="fa fa-chevron-right"></span></a></li>
+                    <li><a href="#">Whiskey <span class="fa fa-chevron-right"></span></a></li> -->
+                </th:block>
+            </ul>
+        </div>
+    </div>

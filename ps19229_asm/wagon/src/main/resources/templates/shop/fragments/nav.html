@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<div th:fragment="nav" class="wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 d-flex align-items-center">
+                <p class="mb-0 phone pl-md-2">
+                    <a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +00 1234 567</a>
+                    <a href="#"><span class="fa fa-paper-plane mr-1"></span> youremail@email.com</a>
+                </p>
+            </div>
+            <div class="col-md-6 d-flex justify-content-md-end">
+                <div class="social-media mr-4">
+                    <p class="mb-0 d-flex">
+                        <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
+                        <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
+                        <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
+                        <a href="#" class="d-flex align-items-center justify-content-center"><span
+                                class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+                    </p>
+                </div>
+                <th:block sec:authorize="isAuthenticated()">
+                    <div class="reg">
+                        <p class="mb-0">
+                            <a th:href="@{/logout}">Log out</a>
+                        </p>
+
+                    </div>
+                </th:block>
+                <th:block sec:authorize="isAnonymous()">
+                    <div class="reg">
+                        <p class="mb-0"><a href="#" class="mr-2">Sign Up</a> <a th:href="@{/user/login}">Log In</a></p>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
+    id="ftco-navbar">
+    <div class="container">
+
+        <a class=" navbar-brand" th:href="@{/index}">Wagon <span>Cafe</span></a>
+        <!-- minicart -->
+        <div id="minicart" class="order-lg-last btn-group">
+            <a href="#" class="btn-cart dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="flaticon-shopping-bag"></span>
+                <div class="d-flex justify-content-center align-items-center"><small id="minicart-amount">3</small>
+                </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+
+                <div ng-repeat="item in cart.items.slice().reverse() |limitTo:3 "
+                    class="dropdown-item d-flex align-items-start" href="#">
+
+                    <div class="img" ng-style="{'background-image':'url(/images/product/{{item.image}})'}"></div>
+                    <div class="text pl-3">
+                        <h4>
+                            <a href="/product/detail/{{item.name}}"
+                                style="color:black; font-weight:bold;">{{item.name}}</a>
+                        </h4>
+                        <p class="mb-0">
+                            <span class="price">
+                                ${{cart.price_of(item)}}
+                            </span>
+                            <span class="quantity ml-3">Quantity:
+                                {{item.quantity}}</span>
+                        </p>
+                    </div>
+                </div>
+                <!--
+                     <div class="dropdown-item d-flex align-items-start" href="#">
+                    <div class="img" style="background-image: url(images/prod-2.jpg);"></div>
+                    <div class="text pl-3">
+                        <h4>Jim Beam Kentucky Straight</h4>
+                        <p class="mb-0"><a href="#" class="price">$30.89</a><span class="quantity ml-3">Quantity:
+                                02</span></p>
+                    </div>
+                </div>
+                <div class="dropdown-item d-flex align-items-start" href="#">
+                    <div class="img" style="background-image: url(images/prod-3.jpg);"></div>
+                    <div class="text pl-3">
+                        <h4>Citadelle</h4>
+                        <p class="mb-0"><a href="#" class="price">$22.50</a><span class="quantity ml-3">Quantity:
+                                01</span></p>
+                    </div>
+                </div>
+                 -->
+                <!-- view all -->
+                <a class="dropdown-item text-center btn-link d-block w-100" th:href="@{/cart}">
+                    View All
+                    <span class="ion-ios-arrow-round-forward"></span>
+                </a>
+                <!-- view all -->
+            </div>
+        </div>
+        <!-- minicart -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+            aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Categories</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown04">
+                        <th:block th:each="cat : ${session.catList}" th:object="${cat}">
+                            <a class="dropdown-item" th:href="@{|/products/__${cat.name}__|}">[[*{name}]]</a>
+                        </th:block>
+                        <!-- <a class="dropdown-item" th:href="@{/product/detail}">Single Product</a>
+                        <a class="dropdown-item" href="cart.html">Cart</a>
+                        <a class="dropdown-item" href="checkout.html">Checkout</a> -->
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Products</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown04">
+                        <a class="dropdown-item" th:href="@{/product}">Products</a>
+                        <a class="dropdown-item" th:href="@{/product/detail}">Single Product</a>
+                        <a class="dropdown-item" href="cart.html">Cart</a>
+                        <a class="dropdown-item" href="checkout.html">Checkout</a>
+                    </div>
+                </li>
+                <th:block sec:authorize="isAuthenticated()">
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Orders</a></li>
+                    <li class="nav-item acc-list-item">
+                        <a href="contact.html" class="nav-link">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            [[${#authentication.principal.username}]]</a>
+                    </li>
+                </th:block>
+            </ul>
+        </div>
+
+    </div>
+
+</nav>
+
+</html>
