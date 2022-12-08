@@ -1,0 +1,91 @@
+
+<script src="js/bootstrap-table.js"></script>
+<style>
+    #pTable {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+
+    #pTable td {
+        white-space: normal !important;
+        word-wrap: break-word;
+    }
+
+    #pTable .btn-group .btn {
+        padding: .4rem 0.5rem;
+    }
+</style>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Products List</h4>
+        <!-- <p class="card-description">
+            Add class <code>.table-striped</code>
+        </p> -->
+        <div class="table-responsive">
+            <table id="pTable" class="table table-striped" data-bs-toggle="table">
+                <thead>
+                    <tr>
+                        <!-- <th>
+                            Image
+                        </th> -->
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Category
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Discount
+                        </th>
+                        <th>
+                            Created Date
+                        </th>
+                        <th>
+
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="p in items">
+                        <!-- <td class="py-1">
+                            <img src="../../images/faces/face1.jpg" alt="image">
+                        </td> -->
+                        <td>
+                            {{p.name}}
+                        </td>
+                        <td>
+                            {{p.category.name}}
+                        </td>
+                        <td>
+                            $ {{p.price}}
+                        </td>
+                        <td>
+                            {{p.discount == null? '-' : p.discount + '%' }}
+                        </td>
+                        <td>
+                            {{p.createdDate}}
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" ng-click="edit(p)" class="btn btn-primary">
+                                    <i class="ti-pencil"></i>
+                                </button>
+                                <button type="button" ng-click="deletePro(p)" class="btn btn-warning">
+                                    <i class="mdi mdi-delete"></i>
+                                </button>
+
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- </div> -->

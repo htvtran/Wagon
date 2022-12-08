@@ -60,7 +60,8 @@
                 <div ng-repeat="item in cart.items.slice().reverse() |limitTo:3 "
                     class="dropdown-item d-flex align-items-start" href="#">
 
-                    <div class="img" ng-style="{'background-image':'url(/images/product/{{item.image}})'}"></div>
+                    <div class="img" ng-style="{'background-image':'url({{link}}/images/product/{{item.image}})'}">
+                    </div>
                     <div class="text pl-3">
                         <h4>
                             <a href="/product/detail/{{item.name}}"

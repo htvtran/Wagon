@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<th:block th:replace="/shop/fragments/link :: link"></th:block>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.0/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.0/angular-route.min.js"></script>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<th:block th:replace="/shop/fragments/title :: title"></th:block>
+</head>
+
+<body ng-app="myapp" ng-controller="cart-ctrl">
+	<th:block th:replace="/shop/fragments/nav :: nav"></th:block>
+	<!-- END nav -->
+	<th:block th:replace="/shop/fragments/bread :: bread"></th:block>
+
+
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12" id="accordion">
+					<div th:each="detail : ${history}" class="card ">
+						<div class="card-header" id="headingOne">
+							<h5 class="mb-0">
+								<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+									aria-expanded="true" aria-controls="collapseOne">
+									Order #[[${detailStat.index + 1}]] - [[${detail.createdDate}]]
+								</button>
+							</h5>
+						</div>
+
+						<div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+							data-parent="#accordion">
+							<div class="card-body">
+
+								<ul>
+									<h4>Details: </h4>
+									<li th:each="od : ${detail.details}">
+										[[${od.product.name}]] ($[[${od.price}]]) x [[${od.quantity}]]
+									</li>
+								</ul>
+
+								<h6>Total Item: [[${detail.totalItems}]]</h6>
+								<h6>Total: $[[${detail.total}]]</h6>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="card">
+						<div class="card-header" id="headingTwo">
+							<h5 class="mb-0">
+								<button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+									aria-expanded="false" aria-controls="collapseTwo">
+									Collapsible Group Item #2
+								</button>
+							</h5>
+						</div>
+						<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+							<div class="card-body">
+								Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+								richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
+								brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
+								aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+								Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
+								ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+								farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
+								accusamus labore sustainable VHS.
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-header" id="headingThree">
+							<h5 class="mb-0">
+								<button class="btn btn-link collapsed" data-toggle="collapse"
+									data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+									Collapsible Group Item #3
+								</button>
+							</h5>
+						</div>
+						<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+							data-parent="#accordion">
+							<div class="card-body">
+								Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+								richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
+								brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
+								aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+								Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente
+								ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+								farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
+								accusamus labore sustainable VHS.
+							</div>
+						</div>
+					</div> -->
+				</div>
+
+			</div>
+
+
+
+
+		</div>
+	</section>
+
+	<th:block th:replace="/shop/fragments/footer:: footer"></th:block>
+
+
+	<th:block th:replace="/shop/fragments/script :: script"></th:block>
+
+
+</body>
+
+</html>

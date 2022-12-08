@@ -1,13 +1,17 @@
 package com.app.wagon.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 import lombok.Getter;
@@ -21,7 +25,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Authority {
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Authority implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -11,7 +11,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 import lombok.Getter;
@@ -24,6 +26,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "username")
 public class User implements Serializable {
 
     @Id
@@ -40,6 +43,7 @@ public class User implements Serializable {
     private String address;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIgnore
     List<Authority> authorities;
 
     @OneToMany(mappedBy = "user")

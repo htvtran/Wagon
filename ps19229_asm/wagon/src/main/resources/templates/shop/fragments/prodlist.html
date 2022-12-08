@@ -19,11 +19,11 @@
             <div th:each="p : ${pList}" class="col-md-4 d-flex">
                 <div class="product ftco-animate">
                     <div class="img d-flex align-items-center justify-content-center"
-                        th:style="'background-image: url('+ @{|../images/product/${p.image}|} +')'">
+                        th:style="'background-image: url('+ @{|{{link}}/images/product/${p.image}|} +')'">
 
                         <div class="desc">
                             <p class="meta-prod d-flex">
-                                <a href="#" th:attr="ng-click=@{|cart.add(${p.id},$event)|}"
+                                <a href="#" th:attr="ng-click=@{|cart.addmini(${p.id},$event)|}"
                                     class="d-flex align-items-center justify-content-center"><span
                                         class="flaticon-shopping-bag"></span></a>
                                 <a href="#" class="d-flex align-items-center justify-content-center"><span

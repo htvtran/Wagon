@@ -79,4 +79,12 @@
             </div>
         </div>
     </div>
+    <script th:inline="javascript">
+        const link = /*[[${#httpServletRequest.getContextPath()}]]*/ 'test';
+        const root = location.protocol + '//' + location.host;
+        const root_rest = link.length > 0 ? `${root}${link}` : root;
+        console.log('link: ', link);
+        console.log('root: ', root);
+        console.log(' root_rest: ', root_rest);
+    </script>
 </footer>

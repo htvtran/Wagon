@@ -29,8 +29,8 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="firstname">Name</label>
-										<input type="text" class="form-control" placeholder=""
-											th:value="${curUser.fullname}">
+										<input type="text" class="form-control" placeholder="" id="data-username"
+											th:attr="data-username=${curUser.username}" th:value="${curUser.fullname}">
 									</div>
 								</div>
 								<!-- <div class="col-md-6">
@@ -152,14 +152,15 @@
 									</p> -->
 									<p class="d-flex">
 										<span>Total item</span>
-										<span>{{cart.amount}}</span>
+										<span>{{cart.selectedAmount}}</span>
 									</p>
 									<hr>
 									<p class="d-flex total-price">
 										<span>Total</span>
 										<span>${{cart.total}}</span>
 									</p>
-									<button class="col-md-12 btn btn-primary">Place an order</button>
+									<button ng-click="purchasedOrder()" class="col-md-12 btn btn-primary">Place an
+										order</button>
 								</div>
 
 							</div>

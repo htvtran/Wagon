@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.app.wagon.config.security.MyUserDetails;
+import com.app.wagon.model.User;
+
 @Controller
 public class LoginController extends BaseViewController<LoginController> {
 
@@ -15,6 +18,8 @@ public class LoginController extends BaseViewController<LoginController> {
     @RequestMapping({ "/user/login" })
     public String getHomeView() {
         System.out.println(getDefaultTitle() + "dsa");
+        if (isAuthenticated())
+            return "redirect:/index";
         return getShopTemplateViewName("login_1");
     }
 
@@ -56,6 +61,11 @@ public class LoginController extends BaseViewController<LoginController> {
             return false;
         }
         return auth.isAuthenticated();
+    }
+
+    public static User getCurrent() {
+        MyUserDetails userDetails = (MyUserDetails) getAuth().getPrincipal();
+        return userDetails.getUser();
     }
 
 }

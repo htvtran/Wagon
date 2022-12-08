@@ -49,11 +49,10 @@ public class ProductController extends BaseViewController {
         // System.out.println("name " + name);
 
         Category c = catSer.findByName(name);
-        System.out.println(c.getName());
 
         setProductList(c.getProdList(), model);
         model.addAttribute("selectedCat", c);
-        System.out.println(this.pList);
+
         return getShopTemplateViewName("product");
     }
 
@@ -63,7 +62,6 @@ public class ProductController extends BaseViewController {
 
         try {
             Product p = pService.findByName(name);
-
             model.addAttribute("product", p);
         } catch (Exception e) {
             e.printStackTrace();

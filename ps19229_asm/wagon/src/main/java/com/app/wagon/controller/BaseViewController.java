@@ -18,6 +18,10 @@ public class BaseViewController<T> {
         return path.getShopTemplateViewName(name);
     }
 
+    protected String getAdminTemplateViewName(String name) {
+        return path.getAdminTemplateViewName(name);
+    }
+
     public String getDefaultTitle() {
         return formatDefaulName(genericType.getSimpleName());
     }

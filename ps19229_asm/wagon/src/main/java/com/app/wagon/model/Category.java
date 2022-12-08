@@ -30,7 +30,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+// property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.None.class)
 public class Category implements Serializable {
 
     @Id
@@ -53,7 +55,6 @@ public class Category implements Serializable {
 
     public Integer getTotalProducts() {
         return getProdList() == null ? 0 : getProdList().size();
-
     }
 
 }

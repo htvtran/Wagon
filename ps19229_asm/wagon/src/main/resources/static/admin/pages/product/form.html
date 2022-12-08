@@ -1,0 +1,64 @@
+<!-- <div class="col-md-6 grid-margin stretch-card"> -->
+<div class="card">
+    <div class="card-body">
+        <!-- <h4 class="card-title">Default form</h4> -->
+        <p class="card-description">
+            Product Detail
+        </p>
+        <form class="forms-sample">
+            <div class="form-group">
+                <label for="">
+                    <img width="100px" height="100px" ng-src="../images/product/{{form.image}}">
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="prodName">Product Name</label>
+                <input type="text" ng-model="form.name" class="form-control" id="prodName" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label for="catName">Category</label>
+                <select class="form-control form-control-sm" id="catName" ng-model="form.category.id">
+                    <option ng-selected="form.category.id == c.id" ng-repeat=" c in cats" value="{{c.id}}">
+                        {{c.name}}
+                    </option>
+
+                    <!-- <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option> -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="prodPrice">Price</label>
+                <input type="text" class="form-control" ng-model="form.price" id="prodPrice" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="prodDiscount">Discount</label>
+                <input read-only type="text" class="form-control" id="prodDiscount" ng-model="form.discount"
+                    placeholder="---">
+            </div>
+            <div class="form-group">
+                <label for="prodDate">Created Date</label>
+                <input disabled type="text" class="form-control" id="prodDate" ng-model="form.createdDate"
+                    placeholder="---">
+            </div>
+
+            <div class="form-group">
+                <label for="prodUpload">Image Choooser</label>
+                <input type="file" class="form-control" id="prodUpload" ng-model="form.createdDate"
+                    onchange="angular.element(this).scope().imageChanged(this.files)">
+            </div>
+            <!-- <div class="form-check form-check-flat form-check-primary">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input">
+                    Remember me
+                    <i class="input-helper"></i></label>
+            </div> -->
+            <button type="button" class="btn btn-primary me-2" ng-click="createProd()">Create</button>
+            <button type="button" class="btn btn-info" ng-click="updatePro()">Update</button>
+            <button type="button" class="btn btn-danger" ng-click="detelePro(form)">Delete</button>
+            <button type="button" ng-click="resetForm()" class="btn btn-warning">Reset</button>
+        </form>
+    </div>
+</div>
+<!-- </div> -->

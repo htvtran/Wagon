@@ -54,4 +54,10 @@ public class ProductServiceImpl implements ProductService {
         });
     }
 
+    @Override
+    public Product create(Product p) {
+
+        return pDao.save(p);
+    }
+
 }

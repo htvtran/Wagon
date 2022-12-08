@@ -1,25 +1,30 @@
 const cartapp = angular.module("myapp", []);
 
+
+
 cartapp.controller("cart-ctrl", function ($scope, $http, $document) {
     $scope.items = [];
+    $scope.link = "";
     $document.ready(function () {
 
         console.log($scope.cart.items);
         $scope.loadToMiniCart();
         console.log($scope.items);
 
+        console.log('sco li ', link);;
+
     });
     $scope.squantity = 1;
     $scope.u = 'ddd';
     $scope.cart = {
         items: [],
-        add(id, $event) {
+        addmini(id, $event) {
+            console.log('event');
             this.add(id, 1, $event);
             return false;
         },
 
         add(id, quantitiy, $event) {
-
             $event.preventDefault();
             console.log(id);
             let item = this.items.find(item => item.id == id);
@@ -27,7 +32,8 @@ cartapp.controller("cart-ctrl", function ($scope, $http, $document) {
                 item.quantity += quantitiy;
                 this.saveToLocalStorage();
             } else {
-                $http.get(`/rest/product/detail/${id}`).then(resp => {
+                console.log("failed");
+                $http.get(`${root_rest}/rest/product/detail/${id}`).then(resp => {
                     let i = resp.data;
                     i.quantity = quantitiy;
                     this.items.push(i);
@@ -47,11 +53,15 @@ cartapp.controller("cart-ctrl", function ($scope, $http, $document) {
             if (index > -1) { // only splice array when item is found
                 this.items.splice(index, 1); // 2nd parameter means remove one item only
             }
-            console.log('removed');
             this.saveToLocalStorage();
 
         },
-        clear() { },
+        clear() {
+            console.log('clear');
+            this.items = this.items.filter(i => i.selected === false);
+            console.log('clear ', this.items);
+            this.saveToLocalStorage();
+        },
         total_of(item) {
             let i = this.items.find(i => i.id === item.id);
             let p = this.price_of(item);
@@ -71,12 +81,18 @@ cartapp.controller("cart-ctrl", function ($scope, $http, $document) {
             let i = this.items.forEach(i => {
                 if (i.selected) total += this.total_of(i)
             });
-            return total;
+
+            return Math.round((total) * 100) / 100;
         },
         get amount() {
             let amount = 0;
             this.items.forEach((i) => { amount += i.quantity });
-            console.log("total item ", amount);
+
+            return amount;
+        },
+        get selectedAmount() {
+            let amount = 0;
+            this.items.forEach((i) => { if (i.selected) amount += i.quantity });
             return amount;
         },
         saveToLocalStorage() {
@@ -128,8 +144,74 @@ cartapp.controller("cart-ctrl", function ($scope, $http, $document) {
         console.log($scope.squantity);
     }
 
-    $scope.order = {}
+    $scope.order = {
+        get userOrder() {
+            return new Order('123 Quatar', $scope.cart);
+        }
+    }
+
+    $scope.purchasedOrder = function () {
+        let order = $scope.order.userOrder;
+        console.log('user order', order);
+        let location = 'order/purchase';
+        let url = `${root_rest}/rest/${location}`;
+        let data = order
+        console.log(url);
+        $http.post(url, data, { headers: { 'responseType': 'text' } })
+            .then(resp => {
+
+                alert("Thank you, your order's been purchase");
+
+                $scope.cart.clear();
+                window.location.href = `${root_rest}/account/orders`;
+
+            })
+
+            .catch(err => { console.log(err); });
+    }
 
     $scope.cart.loadFromLocalStorage();
     $scope.loadToMiniCart();
+    $scope.link = link;
+
+
 });
+
+const options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+};
+
+function Order(address, cart) {
+    //new Intl.DateTimeFormat('en-US', options).format(date)
+    this.date = new Date().toLocaleDateString('en-CA', options).replace(", ", " ");
+    this.address = address;
+    this.account = { username: getUserName() };
+    this.total = cart.total;
+    this.orderDetail = getOrderDetail(cart);
+
+}
+
+function getUserName() {
+    return document.getElementById("data-username").dataset.username;
+}
+function getOrderDetail(cart) {
+    let list = [];
+    let o = cart.items.map(i => {
+        if (i.selected)
+            list.push(new OrderDetail(i))
+    }
+    );
+    // console.log(list);
+    return list;
+}
+
+function OrderDetail(item) {
+    this.product = { id: item.id };
+    this.price = item.price;
+    this.quantity = item.quantity
+        ;
+
+}
