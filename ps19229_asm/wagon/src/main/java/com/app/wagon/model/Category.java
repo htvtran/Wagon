@@ -44,7 +44,7 @@ public class Category implements Serializable {
     String name;
 
     // @Column(name = "Created_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime createdDate;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)

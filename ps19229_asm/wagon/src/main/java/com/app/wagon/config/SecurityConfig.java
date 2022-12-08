@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .antMatchers("/admin").hasAnyAuthority("STAFF", "DIRECTOR")
                 .antMatchers("/account/**").hasAnyAuthority("STAFF", "DIRECTOR", "CUSTOMER")
                 .antMatchers("/auth").authenticated()
+                .antMatchers("/rest/user").authenticated()
                 .anyRequest()
                 .permitAll()
                 .and()

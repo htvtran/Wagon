@@ -42,7 +42,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 mb-5 ftco-animate">
-					<a href="images/prod-1.jpg" class="image-popup prod-img-bg"><img
+					<a th:href="@{|/images/product/${product.image}|}" class="image-popup prod-img-bg"><img
 							th:src="@{|/images/product/${product.image}|}" class="img-fluid"
 							alt="Colorlib Template"></a>
 				</div>
@@ -79,7 +79,7 @@
 					</th:block>
 					<th:block th:unless="${product.discount != null || product.discount > 0 }">
 						<p class="price">
-							<span>[[${product.price}]]</span>
+							<span>$[[${product.price}]]</span>
 						</p>
 					</th:block>
 					<p>[[${product.description}]]
@@ -122,7 +122,8 @@
 					<div class="nav nav-pills d-flex text-center" id="v-pills-tab" role="tablist"
 						aria-orientation="vertical">
 						<a class="nav-link ftco-animate active mr-lg-1" id="v-pills-1-tab" data-toggle="pill"
-							href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Description</a>
+							href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Related
+							Product</a>
 
 						<a class="nav-link ftco-animate mr-lg-1" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2"
 							role="tab" aria-controls="v-pills-2" aria-selected="false">Manufacturer</a>
@@ -138,15 +139,28 @@
 
 						<div class="tab-pane fade show active" id="v-pills-1" role="tabpanel"
 							aria-labelledby="day-1-tab">
-							<div class="p-4">
-								<h3 class="mb-4">Bacardi 151 Degree</h3>
-								<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came
-									from it would have been rewritten a thousand times and everything that was left from
-									its origin would be the word "and" and the Little Blind Text should turn around and
-									return to its own, safe country. But nothing the copy said could convince her and so
-									it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk
-									with Longe and Parole and dragged her into their agency, where they abused her for
-									their.</p>
+							<style>
+								.rec-area {
+									display: flex;
+									justify-content: center;
+								}
+							</style>
+							<div class="p-4 row rec-area">
+
+								<div th:each="rp : ${related} " class="col-lg-3 col-md-5">
+									<a style="display:block" class="text-center"
+										th:href="@{|/product/detail/${rp.name}|}">
+										<div class="sort w-100 text-center ftco-animate fadeInUp ftco-animated">
+											<div class="img"
+												th:style="'background-image: url('+ @{|{{link}}/images/product/${rp.image}|} +')'">
+											</div>
+											<h3>[[${rp.name}]]</h3>
+										</div>
+									</a>
+								</div>
+
+
+
 							</div>
 						</div>
 

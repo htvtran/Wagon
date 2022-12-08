@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    suc
+    <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
 </body>
 
 </html>

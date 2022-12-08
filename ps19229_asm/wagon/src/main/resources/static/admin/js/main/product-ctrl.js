@@ -1,4 +1,5 @@
 
+
 const options = {
     year: "numeric",
     month: "numeric",
@@ -6,6 +7,13 @@ const options = {
     hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
 };
 myapp.controller("product-ctrl", function ($scope, $http) {
+
+    $(document).ready(function () {
+        // $.noConflict();
+
+        $('#pTable').DataTable();
+
+    });
     $scope.title = "PRODUCT PAGE"
     $scope.resources = getRequestLink("admin/pages/product");
     $scope.rest = {
@@ -14,6 +22,7 @@ myapp.controller("product-ctrl", function ($scope, $http) {
 
             switch (name) {
                 case 'update':
+                case 'delete':
                 case 'create': return this.root + '/products';
                 case 'all':
                     return this.root + '/products';
@@ -68,10 +77,12 @@ myapp.controller("product-ctrl", function ($scope, $http) {
         let link = $scope.rest.getLink("id") + item.id;
         $scope.form = angular.copy(item);
         console.log($scope.form.category.id);
-        // $http.get(link).then(resp => {
-        //     $scope.form = resp.data
-        //     console.log($scope.items);
-        // });
+        let form = document.getElementById("productForm");
+        form.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            inline: "start"
+        });
 
     }
 
@@ -89,11 +100,26 @@ myapp.controller("product-ctrl", function ($scope, $http) {
 
     $scope.updatePro = function () {
         let item = angular.copy($scope.form);
-        $http.put($scope.rest.getLink("update"), item)
+        let link = $scope.rest.getLink("update") + '/' + item.id;
+        $http.put(link, item)
+            .then(resp => {
+                let index = $scope.items.findIndex(p => p.id == item.id);
+                $scope.items[index] = item;
+                alert("Update Successfully")
+
+            })
     }
 
     $scope.detelePro = function (item) {
 
+        let link = $scope.rest.getLink("delete") + '/' + item.id;
+        $http.delete(link)
+            .then(resp => {
+                let index = $scope.items.findIndex(p => p.id == item.id);
+                $scope.items.splice(index, 1);
+                alert("Delete Successfully")
+                $scope.resetForm();
+            })
     }
 
     $scope.imageChanged = function (files) {

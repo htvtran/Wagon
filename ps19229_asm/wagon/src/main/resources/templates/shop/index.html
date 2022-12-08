@@ -110,42 +110,15 @@
 		<section class="ftco-section ftco-no-pb">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-2 col-md-4 ">
+					<div th:each="cat : ${session.catList}" class="col-lg-2 col-md-4 ">
 						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(images/kind-1.jpg);"></div>
-							<h3>Brandy</h3>
+							<div class="img"
+								th:style="'background-image: url('+ @{|{{link}}/images/category_${cat.id}.jpg|} +')'">
+							</div>
+							<h3>[[${cat.name}]]</h3>
 						</div>
 					</div>
-					<div class="col-lg-2 col-md-4 ">
-						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(images/kind-2.jpg);"></div>
-							<h3>Gin</h3>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-4 ">
-						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(images/kind-3.jpg);"></div>
-							<h3>Rum</h3>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-4 ">
-						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(images/kind-4.jpg);"></div>
-							<h3>Tequila</h3>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-4 ">
-						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(images/kind-5.jpg);"></div>
-							<h3>Vodka</h3>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-4 ">
-						<div class="sort w-100 text-center ftco-animate">
-							<div class="img" style="background-image: url(images/kind-6.jpg);"></div>
-							<h3>Whiskey</h3>
-						</div>
-					</div>
+
 
 				</div>
 			</div>
@@ -160,31 +133,48 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-3 d-flex">
+					<div class="col-md-3 d-flex" th:each="p : ${pList}" th:unless="${pStat.index > 7}">
 						<div class="product ftco-animate">
 							<div class="img d-flex align-items-center justify-content-center"
-								style="background-image: url(images/prod-1.jpg);">
+								th:style="'background-image: url('+ @{|{{link}}/images/product/${p.image}|} +')'">
 								<div class="desc">
 									<p class="meta-prod d-flex">
-										<a href="#" class="d-flex align-items-center justify-content-center"><span
+										<a href="#" th:attr="ng-click=@{|cart.addmini(${p.id},$event)|}"
+											class="d-flex align-items-center justify-content-center"><span
 												class="flaticon-shopping-bag"></span></a>
 										<a href="#" class="d-flex align-items-center justify-content-center"><span
 												class="flaticon-heart"></span></a>
-										<a href="#" class="d-flex align-items-center justify-content-center"><span
+										<a th:href="@{|/product/detail/${p.name}|}"
+											class="d-flex align-items-center justify-content-center"><span
 												class="flaticon-visibility"></span></a>
 									</p>
 								</div>
 							</div>
 							<div class="text text-center">
-								<span class="sale">Sale</span>
-								<span class="category">Brandy</span>
-								<h2>Bacardi 151</h2>
-								<p class="mb-0"><span class="price price-sale">$69.00</span> <span
-										class="price">$49.00</span></p>
+								<span th:if="${p.discount > 0}" class="sale">Sale</span>
+								<span class="category">
+									<a th:href="@{/products/__${p.category.name}__}">[[${p.category.name}]]</a>
+								</span>
+
+								<h2> <a class="product-detail-link"
+										th:href="@{/product/detail/__${p.name}__}">[[${p.name}]]</a>
+								</h2>
+								<p class="mb-0">
+									<th:block th:if="${p.discount > 0}">
+										<span class="price price-sale">$[[${p.price}]]</span>
+										<span class="price"
+											th:text="${'$' + #numbers.formatDecimal((p.price * ((100 - p.discount) * 0.01)), 0, 'COMMA', 2, 'POINT')}"></span>
+
+									</th:block>
+									<th:block th:unless="${p.discount > 0}">
+										<span class="price">$[[${p.price}]]</span>
+									</th:block>
+								</p>
 							</div>
 						</div>
+
 					</div>
-					<div class="col-md-3 d-flex">
+					<!-- <div class="col-md-3 d-flex">
 						<div class="product ftco-animate">
 							<div class="img d-flex align-items-center justify-content-center"
 								style="background-image: url(images/prod-2.jpg);">
@@ -340,7 +330,7 @@
 								<span class="price">$69.00</span>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<div class="row justify-content-center">
 					<div class="col-md-4">

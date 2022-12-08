@@ -4,7 +4,9 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.app.wagon.config.security.MyUserDetails;
@@ -17,10 +19,15 @@ public class LoginController extends BaseViewController<LoginController> {
 
     @RequestMapping({ "/user/login" })
     public String getHomeView() {
-        System.out.println(getDefaultTitle() + "dsa");
+
         if (isAuthenticated())
             return "redirect:/index";
         return getShopTemplateViewName("login_1");
+    }
+
+    @ModelAttribute("title")
+    public String getTitle() {
+        return getDefaultTitle();
     }
 
     @GetMapping({ "/user/login/success" })
@@ -36,8 +43,8 @@ public class LoginController extends BaseViewController<LoginController> {
     }
 
     @GetMapping("/access/denied")
-    public String accessDeniedView() {
-
+    public String accessDeniedView(Model model) {
+        model.addAttribute("message", "You can't access Admin page");
         return getShopTemplateViewName("denied");
     }
 

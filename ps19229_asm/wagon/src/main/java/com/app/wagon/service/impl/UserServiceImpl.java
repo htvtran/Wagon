@@ -1,5 +1,7 @@
 package com.app.wagon.service.impl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,12 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         User u = dao.findByUsername(username).get();
         return u;
+    }
+
+    @Override
+    public List<User> findAll() {
+        // TODO Auto-generated method stub
+        return dao.findAll();
     }
 
 }
