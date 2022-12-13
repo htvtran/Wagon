@@ -94,7 +94,6 @@ public class ProductRestController {
 
             return mapper.writeValueAsString(p);
         } catch (JsonProcessingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;

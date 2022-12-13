@@ -1,5 +1,6 @@
 package com.app.wagon.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,4 +11,6 @@ import com.app.wagon.model.Product;
 @Repository
 public interface ProductDAO extends JpaRepository<Product, Integer> {
     Optional<Product> findByName(String name);
+
+    List<Product> findAllByNameLike(String name);
 }

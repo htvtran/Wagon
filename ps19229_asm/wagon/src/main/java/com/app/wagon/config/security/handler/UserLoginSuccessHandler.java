@@ -22,7 +22,6 @@ public class UserLoginSuccessHandler extends SavedRequestAwareAuthenticationSucc
 
         MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
 
-        String session = request.getRequestedSessionId();
         User u = userDetails.getUser();
 
         System.out.println(u);

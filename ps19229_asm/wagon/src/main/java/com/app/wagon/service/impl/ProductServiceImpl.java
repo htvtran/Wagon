@@ -22,7 +22,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findAll() {
-        // TODO Auto-generated method stub
         return pDao.findAll();
     }
 
@@ -48,7 +47,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findByName(String name) {
-        // TODO Auto-generated method stub
         return pDao.findByName(name).orElseGet(() -> {
             throw new RuntimeException("Can't find product by name = " + name);
         });
@@ -70,6 +68,11 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Integer id) {
         pDao.deleteById(id);
 
+    }
+
+    @Override
+    public List<Product> findByNameLike(String key) {
+        return pDao.findAllByNameLike(key);
     }
 
 }

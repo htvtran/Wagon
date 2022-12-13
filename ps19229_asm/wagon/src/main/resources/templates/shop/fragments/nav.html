@@ -2,7 +2,9 @@
 <html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 
+
 <div th:fragment="nav" class="wrap">
+    <link rel="stylesheet" th:href="@{/css/search-bar.css}">
     <div class="container">
         <div class="row">
             <div class="col-md-6 d-flex align-items-center">
@@ -142,11 +144,31 @@
                             [[${#authentication.principal.username}]]</a>
                     </li>
                 </th:block>
+                <li class="nav-item">
+                    <!-- <div class="col-md-4 col-md-offset-3"> -->
+                    <div class="h-100 d-flex align-items-center">
+                        <form action="/products" class="search-form h-75">
+                            <div class="form-group has-feedback">
+                                <label for="search" class="sr-only">Search</label>
+                                <input type="text" class="form-control" name="search" id="search" placeholder="search">
+
+                                <span class="form-control-feedback">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- </div> -->
+                </li>
             </ul>
         </div>
+
+        <!--  -->
 
     </div>
 
 </nav>
+
+
 
 </html>
